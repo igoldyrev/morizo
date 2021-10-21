@@ -1,4 +1,4 @@
-<?php
+    <?php
 require $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_before.php';
 CModule::IncludeModule("iblock");
 
@@ -31,27 +31,29 @@ if(CModule::IncludeModule("iblock") && ($arIBlock = GetIBlock($_GET["BID"], "cus
     $doc = new DOMDocument;
     $count = 0;
 
+    // сам файл выложен по ссылке https://yadi.sk/d/irqGHS4X170kog из-за ограничений гитхаб
+
     $reader->open('example.xml'); // указываем ридеру что будем парсить этот файл
-    
+
     while($reader->read()) {
 
     	$el = new CIBlockElement;
-        
+
         if($reader->nodeType == XMLReader::ELEMENT && $reader->name == 'test') {
 
         	$node = simplexml_import_dom($doc->importNode($reader->expand(), true));
-              
+
             $data = array();
 
             $name = $node->name;
             $description = $node->description;
-         
+
             $reader->read();
-                
+
             if($reader->nodeType == XMLReader::TEXT) {
-                   
+
                 $data['name'] = $reader->value;
-                
+
             }
 
             $arLoadProductArray = Array(
@@ -61,8 +63,8 @@ if(CModule::IncludeModule("iblock") && ($arIBlock = GetIBlock($_GET["BID"], "cus
   			"NAME"           => "Элемент",
   			"ACTIVE"         => "Y",            // активен
   			 "PROPERTY_VALUES" => array(
-   				"NAME" => $name, 
-   				"DESCRIPTION" => $age, 
+   				"NAME" => $name,
+   				"DESCRIPTION" => $age,
    				)
   			);
 
